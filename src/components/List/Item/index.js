@@ -23,16 +23,34 @@ const ItemStyleWrapper = styled.div(({
 }) => `
   margin: 2em 1em;
   padding: 1.5em;
-  border: ${selected ? '1px solid aquamarine': '1px solid white'};
+  border: ${selected ? '1px solid aquamarine' : '1px solid white'};
   border-radius: 10px;
-  box-shadow: 5px 5px 10px #888888;
+  
   background-color: ${isDeleting && 'tomato'};
   cursor: ${selected ? 'auto' : 'pointer'};
-
+  text-align: center;
   &:hover {
     border: 1px solid aquamarine;
   }
+  display: flex;
+  justify-content: space-between;
+
 `);
+
+const ItemText = styled.p`
+   color: #1c4369 !important;
+   display: inline;
+   text-align: center !important;
+   width: 50%;
+   vertical-align: middle;
+   
+`
+
+const InputCheckBox = styled.input`
+  zoom: 2;
+  vertical-align: middle;
+  margin-right: 5px;
+`
 
 const Button = styled.button`
   background: none;
@@ -62,13 +80,17 @@ function Item({
   const [isDeleteMode, updateIsDeleteMode] = useState(false);
   const [isDeleting, updateIsDeleting] = useState(false);
 
-  
+
 
 
   if (!selected) {
     return (
       <ItemStyleWrapper onClick={() => onSelect(item.id)}>
-        { itemValue }
+        <div>
+          <InputCheckBox type="checkbox" name="example"/>
+          <label><ItemText>{itemValue}</ItemText> </label>
+        </div>
+
       </ItemStyleWrapper>
     );
   }
@@ -103,9 +125,9 @@ function Item({
     return (
       <ItemStyleWrapper>
         <EditInstanceForm
-          id={ item.id }
+          id={item.id}
           label="Item Value:"
-          value={ itemValue }
+          value={itemValue}
           onChange={handleItemValueChange}
           onSave={handleItemValueSave}
           onCancel={handleCancelEdit}
@@ -144,7 +166,10 @@ function Item({
         selected={selected}
         isDeleting={isDeleting}
       >
-        { itemValue }
+        <div>
+          <InputCheckBox type="checkbox" name="example" style={{zoom: 2 }}/>
+          <label><ItemText>{itemValue}</ItemText> </label>
+        </div>
         <DeleteInstanceMenu
           onDelete={handleDelete}
           onCancel={handleCancelDelete}
@@ -156,21 +181,25 @@ function Item({
 
   return (
     <ItemStyleWrapper selected={selected}>
-      { itemValue }
-      <Button
-        type="button"
-        onClick={() => updateIsEditMode(true)}
-      >
-        &#9998;
+      <div>
+          <InputCheckBox type="checkbox" name="example" />
+          <label><ItemText>{itemValue}</ItemText> </label>
+        </div>
+      <div>
+        <Button
+          type="button"
+          onClick={() => updateIsEditMode(true)}
+        >
+          &#9998;
       </Button>
-      <Button
-        type="button"
-        onClick={() => updateIsDeleteMode(true)}
-      >
-        &#128465;
+        <Button
+          type="button"
+          onClick={() => updateIsDeleteMode(true)}
+        >
+          &#128465;
       </Button>
+      </div>
 
-      
 
 
     </ItemStyleWrapper>

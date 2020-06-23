@@ -11,9 +11,12 @@ import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
 import Items from './components/List/Items';
 
+
+
 const Wrapper = styled.div`
   padding: 5em 5em;
   min-width: 480px;
+  background-color: #f5f6f9;
 `;
 
 const LoginWrapper = styled.div`

@@ -1,0 +1,11 @@
+.Form {
+    display: inline;
+    width: 30rem;
+    margin-top: 20px;
+
+    &--input {
+        display: inline;
+        width: 22rem !important;
+        margin-right: 3px !important;
+    }
+}

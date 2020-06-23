@@ -4,25 +4,35 @@ import styled from 'styled-components';
 import { withNoStack, EXECUTE } from '@nostack/no-stack';
 import compose from '@shopify/react-compose';
 
+import { Button, Form } from 'semantic-ui-react'
+
+
 import { CREATE_ITEM_FOR_LIST_ACTION_ID
  } from '../../../config';
 
-// change styling here
-const Form = styled.div`
-  margin: 2em;
-  padding: 1.5em;
-  border: none;
-  border-radius: 5px;
-  background-color: #F5F5F5;
-`;
+ import './styles.scss'
 
-const Button = styled.button`
-  margin-left: 1em;
-`;
+// change styling here
+// const Form = styled.div`
+//   margin: 2em;
+//   padding: 1.5em;
+//   border: none;
+//   border-radius: 5px;
+//   background-color: #F5F5F5;
+//   position: relative;
+    
+// `;
+
+// const Button = styled.button`
+//   margin-left: 1em;
+//   backgound-color: blue;
+  
+// `;
 
 function ItemCreationForm({ userId, createItem, refetchQueries }) {
   const [ itemValue, updateItemValue ] = useState('');
   const [ loading, updateLoading ] = useState(false);
+  const [ buttonFlag, setButtonFlag] = useState(false);
 
   function handleChange(e) {
     updateItemValue(e.target.value);
@@ -39,12 +49,7 @@ function ItemCreationForm({ userId, createItem, refetchQueries }) {
 
 
 
-
-
-
-
-
-    const createItemResponse = await createItem({
+  const createItemResponse = await createItem({
       variables: {
         actionId: CREATE_ITEM_FOR_LIST_ACTION_ID,
         executionParameters: JSON.stringify({
@@ -71,11 +76,12 @@ function ItemCreationForm({ userId, createItem, refetchQueries }) {
     }
   }
 
-  return (
-    <Form>
+    return (
+     <div>
+    <Form size='small' className="Form">
       <label htmlFor="item-value">
-        Item:
         <input
+          className="Form--input"
           id="item-value"
           type="text"
           onChange={handleChange}
@@ -84,14 +90,9 @@ function ItemCreationForm({ userId, createItem, refetchQueries }) {
           disabled={loading}
         />
       </label>
-      <Button type="submit"  disabled={loading}  onClick={handleSubmit}>
-        {
-          loading
-            ? 'Creating Item...'
-            : 'Create Item'
-        }
-      </Button>
+      <Button primary onClick={handleSubmit} >Add a task + </Button>
     </Form>
+    </div> 
   );
 }
 

@@ -17,13 +17,35 @@ import { LIST_RELATIONSHIPS, SOURCE_LIST_QUERY } from '../../source-props/list';
 const ItemsStyleWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  flex-direction: column;
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.3);  
+  width: 30rem;
+  margin: 0 auto;
+  border-radius: 6px;
+  background-color: white;
+
+  p{
+    text-align: initial;
+    margin-left: .5rem;
+    font-size: 1.5rem;
+    color: dodgerblue
+  }
+
 `;
+
+const Container = styled.div`
+    height: 50rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    
+ `
+
 // np__added_end unit: list, comp: Items, loc: styling
 
 class Items extends Component {
-// np__added_start unit: list, comp: Items, loc: beginning
-// np__added_end unit: list, comp: Items, loc: beginning
+  // np__added_start unit: list, comp: Items, loc: beginning
+  // np__added_end unit: list, comp: Items, loc: beginning
   state = {
     selectedItemId: null,
   };
@@ -32,7 +54,7 @@ class Items extends Component {
 
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClick);
-    }
+  }
 
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClick);
@@ -62,12 +84,12 @@ class Items extends Component {
 
     return (
       <Unit
-        id={ SOURCE_LIST_ID }
-        typeRelationships={ LIST_RELATIONSHIPS }
-        query={ SOURCE_LIST_QUERY }
+        id={SOURCE_LIST_ID}
+        typeRelationships={LIST_RELATIONSHIPS}
+        query={SOURCE_LIST_QUERY}
         parameters={parameters}
       >
-        {({loading, error, data, refetchQueries}) => {
+        {({ loading, error, data, refetchQueries }) => {
           if (loading) return 'Loading...';
 
           if (error) {
@@ -78,23 +100,25 @@ class Items extends Component {
           const items = data.unitData.map(el => flattenData(el));
 
           return (
-            <>
-              <ItemCreationForm  userId={ userId } refetchQueries={refetchQueries}/>
+            <Container style={{height: '50rem', display: 'flex', }}>
+
               <ItemsStyleWrapper ref={this.wrapperRef} onClick={this.handleClick}>
-                { items && items.map(item => (
+                <p>Active Tasks</p>
+                {items && items.map(item => (
                   <Item
                     key={v4()}
-                    parentId={ userId }
-                    item={ item }
-                    selected={ item.id === selectedItemId }
+                    parentId={userId}
+                    item={item}
+                    selected={item.id === selectedItemId}
                     refetchQueries={refetchQueries}
                     onSelect={this.handleSelect}
                   />
-                )) }
+                ))}
               </ItemsStyleWrapper>
-                {/* np__added_start unit: list, comp: Items, loc: renderEnding */}
-                {/* np__added_end unit: list, comp: Items, loc: renderEnding */}
-            </>
+              {/* np__added_start unit: list, comp: Items, loc: renderEnding */}
+              {/* np__added_end unit: list, comp: Items, loc: renderEnding */}
+              <ItemCreationForm userId={userId} refetchQueries={refetchQueries} />
+            </Container>
           );
         }}
       </Unit>
