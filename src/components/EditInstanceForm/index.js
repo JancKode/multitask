@@ -14,6 +14,17 @@ const Button = styled.button`
   }
 `;
 
+const Input = styled.input`
+  border: none;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  font-size: 1.5rem;
+  color: #1c4369 !important;
+  &:focus {
+   outline: none;
+  }
+`
+
 function EditInstanceForm({
   id,
   label,
@@ -26,13 +37,13 @@ function EditInstanceForm({
   return (
     <>
       <label htmlFor={id}>
-        {label}
-        <input
+        <Input
           id={id}
           type="text"
           value={value}
           onChange={onChange}
           disabled={disabled}
+          
         />
       </label>
       <Button

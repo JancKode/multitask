@@ -23,21 +23,34 @@ const ItemsStyleWrapper = styled.div`
   margin: 0 auto;
   border-radius: 6px;
   background-color: white;
+  min-height: 10rem;
 
-  p{
-    text-align: initial;
-    margin-left: .5rem;
-    font-size: 1.5rem;
-    color: dodgerblue
-  }
+
 
 `;
+
+const ActiveText = styled.p`
+
+  text-align: initial;
+  margin-left: .5rem;
+  font-size: 1.5rem;
+  color: dodgerblue
+`;
+
+const InactiveText = styled.p`
+  text-align: initial;
+  margin-left: .5rem;
+  margin-top: .5rem;
+  font-size: 1.5rem;
+  color: grey
+`
 
 const Container = styled.div`
     height: 50rem;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+
     
  `
 
@@ -103,7 +116,7 @@ class Items extends Component {
             <Container style={{height: '50rem', display: 'flex', }}>
 
               <ItemsStyleWrapper ref={this.wrapperRef} onClick={this.handleClick}>
-                <p>Active Tasks</p>
+                {items.length ? <ActiveText>Active Tasks</ActiveText> : <InactiveText>No Active Tasks</InactiveText>}
                 {items && items.map(item => (
                   <Item
                     key={v4()}

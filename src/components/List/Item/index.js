@@ -17,37 +17,40 @@ import DeleteInstanceMenu from '../../DeleteInstanceMenu';
 
 
 // add styling here
+//border: ${selected ? '1px solid aquamarine' : '1px solid white'};
+//cursor: ${selected ? 'auto' : 'pointer'};
 const ItemStyleWrapper = styled.div(({
   selected,
   isDeleting,
 }) => `
-  margin: 2em 1em;
-  padding: 1.5em;
-  border: ${selected ? '1px solid aquamarine' : '1px solid white'};
+  margin: 0 1em;
+  padding: 1rem 1.5em;
+  
   border-radius: 10px;
   
-  background-color: ${isDeleting && 'tomato'};
-  cursor: ${selected ? 'auto' : 'pointer'};
+  background-color: ${selected && '#82878c52'};
+  
+  
   text-align: center;
-  &:hover {
-    border: 1px solid aquamarine;
-  }
+ 
   display: flex;
   justify-content: space-between;
 
 `);
 
-const ItemText = styled.p`
-   color: #1c4369 !important;
+const ItemText = styled.p(({ isChecked }) => `
+   color: ${ !isChecked ? '#1c4369 !important' : 'grey'};
+   opacity ${!isChecked ? 1 : .31};
    display: inline;
    text-align: center !important;
    width: 50%;
    vertical-align: middle;
-   
-`
+   font-size: 1.5rem;
+   text-decoration: ${isChecked ? 'line-through' : 'none'}
+`);
 
 const InputCheckBox = styled.input`
-  zoom: 2;
+  zoom: 2.5;
   vertical-align: middle;
   margin-right: 5px;
 `
@@ -79,16 +82,19 @@ function Item({
   const [isSaving, updateIsSaving] = useState(false);
   const [isDeleteMode, updateIsDeleteMode] = useState(false);
   const [isDeleting, updateIsDeleting] = useState(false);
+  const [isChecked, setIsChecked] = useState(false)
 
+
+ 
 
 
 
   if (!selected) {
     return (
-      <ItemStyleWrapper onClick={() => onSelect(item.id)}>
+      <ItemStyleWrapper>
         <div>
-          <InputCheckBox type="checkbox" name="example"/>
-          <label><ItemText>{itemValue}</ItemText> </label>
+          <InputCheckBox type="checkbox" name="example" onChange={handleCheckbox} />
+          <label><ItemText isChecked={isChecked}  onClick={handleEditMode}  onClick={() => onSelect(item.id)}>{itemValue}</ItemText> </label>
         </div>
 
       </ItemStyleWrapper>
@@ -97,6 +103,11 @@ function Item({
 
   function handleItemValueChange(e) {
     updateItemValue(e.target.value);
+  }
+
+  function handleEditMode(){
+    console.log(`isEditMode`, isEditMode)
+    updateIsEditMode(!isEditMode)
   }
 
   async function handleItemValueSave() {
@@ -160,6 +171,10 @@ function Item({
     updateIsDeleteMode(false);
   }
 
+  function handleCheckbox() {
+    setIsChecked(!isChecked)
+  }
+
   if (isDeleteMode) {
     return (
       <ItemStyleWrapper
@@ -167,8 +182,8 @@ function Item({
         isDeleting={isDeleting}
       >
         <div>
-          <InputCheckBox type="checkbox" name="example" style={{zoom: 2 }}/>
-          <label><ItemText>{itemValue}</ItemText> </label>
+          <InputCheckBox type="checkbox" name="example" style={{ zoom: 2 }} onChange={handleCheckbox} isChecked={isChecked} />
+          <label><ItemText isChecked={isChecked}>{itemValue}</ItemText> </label>
         </div>
         <DeleteInstanceMenu
           onDelete={handleDelete}
@@ -182,22 +197,22 @@ function Item({
   return (
     <ItemStyleWrapper selected={selected}>
       <div>
-          <InputCheckBox type="checkbox" name="example" />
-          <label><ItemText>{itemValue}</ItemText> </label>
-        </div>
+        <InputCheckBox type="checkbox" name="example" onChange={handleCheckbox} />
+        <label><ItemText isChecked={isChecked}>{itemValue}</ItemText> </label>
+      </div>
       <div>
         <Button
           type="button"
           onClick={() => updateIsEditMode(true)}
         >
-          &#9998;
+          <span style={{ fontSize: '40px' }}>&#9998;</span>
       </Button>
         <Button
           type="button"
           onClick={() => updateIsDeleteMode(true)}
         >
-          &#128465;
-      </Button>
+          <span style={{ fontSize: '40px' }}>&#128465;</span>
+        </Button>
       </div>
 
 
