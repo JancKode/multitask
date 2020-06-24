@@ -23,16 +23,11 @@ const ItemStyleWrapper = styled.div(({
   selected,
   isDeleting,
 }) => `
-  margin: 0 1em;
+  margin:1rem;
   padding: 1rem 1.5em;
-  
   border-radius: 10px;
-  
-  background-color: ${selected && '#82878c52'};
-  
-  
+  background-color: ${selected && '#82878c30'};
   text-align: center;
- 
   display: flex;
   justify-content: space-between;
 
@@ -94,7 +89,7 @@ function Item({
       <ItemStyleWrapper>
         <div>
           <InputCheckBox type="checkbox" name="example" onChange={handleCheckbox} />
-          <label><ItemText isChecked={isChecked}  onClick={handleEditMode}  onClick={() => onSelect(item.id)}>{itemValue}</ItemText> </label>
+          <label><ItemText isChecked={isChecked}  onClick={() => onSelect(item.id)}>{itemValue}</ItemText> </label>
         </div>
 
       </ItemStyleWrapper>
@@ -182,7 +177,7 @@ function Item({
         isDeleting={isDeleting}
       >
         <div>
-          <InputCheckBox type="checkbox" name="example" style={{ zoom: 2 }} onChange={handleCheckbox} isChecked={isChecked} />
+          <InputCheckBox type="checkbox" name="example" onChange={handleCheckbox} isChecked={isChecked} />
           <label><ItemText isChecked={isChecked}>{itemValue}</ItemText> </label>
         </div>
         <DeleteInstanceMenu

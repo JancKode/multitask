@@ -25,6 +25,30 @@ const Input = styled.input`
   }
 `
 
+const ItemText = styled.p(({ isChecked }) => `
+   color: ${ !isChecked ? '#1c4369 !important' : 'grey'};
+   opacity ${!isChecked ? 1 : .31};
+   display: inline;
+   text-align: center !important;
+   width: 50%;
+   vertical-align: middle;
+   font-size: 1.5rem;
+   text-decoration: ${isChecked ? 'line-through' : 'none'}
+`);
+
+const InputCheckBox = styled.input`
+  zoom: 2.5;
+  vertical-align: middle;
+  margin-right: 5px;
+`
+const Label = styled.label`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+
+
 function EditInstanceForm({
   id,
   label,
@@ -36,7 +60,11 @@ function EditInstanceForm({
 }) {
   return (
     <>
-      <label htmlFor={id}>
+      <Label htmlFor={id}>
+      
+          <InputCheckBox type="checkbox" name="example" disabled/>
+          
+        
         <Input
           id={id}
           type="text"
@@ -45,7 +73,7 @@ function EditInstanceForm({
           disabled={disabled}
           
         />
-      </label>
+      </Label>
       <Button
         type="button"
         hoverColor="#00FF00"

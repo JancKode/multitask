@@ -32,17 +32,18 @@ const ItemsStyleWrapper = styled.div`
 const ActiveText = styled.p`
 
   text-align: initial;
-  margin-left: .5rem;
+  margin-left: 1rem;
+  margin-top: 1rem !important;
   font-size: 1.5rem;
   color: dodgerblue
 `;
 
 const InactiveText = styled.p`
   text-align: initial;
-  margin-left: .5rem;
-  margin-top: .5rem;
+  margin-left: 1rem;
+  margin-top: 1rem !important;
   font-size: 1.5rem;
-  color: grey
+  color: #80808057;
 `
 
 const Container = styled.div`
