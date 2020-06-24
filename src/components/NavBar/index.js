@@ -21,7 +21,7 @@ const NavBar = () => (
   <Wrapper>
     <div><img src={logo}/></div>
     <div>
-      <p style={{fontSize:'.9rem', color: 'black'}}>LOGOUT</p>
+      <LogoutButton />
     </div>
   </Wrapper>
 );
